@@ -1,0 +1,55 @@
+/* What does the app's SQL look like? */
+
+CREATE TABLE hogwarts_legacy (
+ID INTEGER PRIMARY KEY AUTOINCREMENT,
+fullname TEXT,
+user_id TEXT,
+age INTEGER,
+country TEXT);
+
+CREATE TABLE hours_played (
+ID INTEGER PRIMARY KEY AUTOINCREMENT,
+user_id TEXT,
+console_type TEXT,
+hours INTEGER,
+levels_completed INTEGER
+);
+
+INSERT INTO hogwarts_legacy (fullname, user_id, age, country) VALUES ("Bobby Smith", "bo_smitty", 24, "England");
+INSERT INTO hogwarts_legacy (fullname, user_id, age, country) VALUES ("Angie Freelance", "angiebeanie", 19, "Scotland");
+INSERT INTO hogwarts_legacy (fullname, user_id, age, country) VALUES ("Lance Nielsen", "sirlancealot", 29, "England");
+INSERT INTO hogwarts_legacy (fullname, user_id, age, country) VALUES ("Alan Roberson", "al_the_man", 30, "USA");
+INSERT INTO hogwarts_legacy (fullname, user_id, age, country) VALUES ("Stefanie Iverson", "stephleigh", 37, "USA");
+
+INSERT INTO hours_played (user_id, console_type, hours, levels_completed) VALUES ("bo_smitty", "PS5", 45, 12);
+INSERT INTO hours_played (user_id, console_type, hours, levels_completed) VALUES ("angiebeanie", "PC", 56, 15);
+INSERT INTO hours_played (user_id, console_type, hours, levels_completed) VALUES ("sirlancealot", "XBOX ONE", 13, 4);
+INSERT INTO hours_played (user_id, console_type, hours, levels_completed) VALUES ("al_the_man", "PS5", 99, 35);
+INSERT INTO hours_played (user_id, console_type, hours, levels_completed) VALUES ("stephleigh", "PC", 38, 18);
+
+SELECT AVG(hours), console_type
+FROM hours_played
+GROUP BY console_type;
+
+UPDATE hogwarts_legacy
+SET age = "35"
+WHERE age = "37";
+
+SELECT age FROM hogwarts_legacy;
+
+DELETE FROM hours_played WHERE hours < 20;
+SELECT * FROM hours_played;
+
+ALTER TABLE hogwarts_legacy 
+ADD territory TEXT;
+SELECT * FROM hogwarts_legacy;
+
+UPDATE hogwarts_legacy
+SET territory = "UK"
+WHERE country = "England";
+SELECT * FROM hogwarts_legacy;
+
+SELECT hogwarts_legacy.user_id, age, country, hours_played.hours
+FROM hogwarts_legacy
+LEFT OUTER JOIN hours_played
+ON hogwarts_legacy.id = hours_played.id;
